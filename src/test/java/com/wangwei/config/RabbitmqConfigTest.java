@@ -78,11 +78,13 @@ public class RabbitmqConfigTest {
     public void testSendMessage2() throws Exception {
         //1 创建消息
         MessageProperties messageProperties = new MessageProperties();
-        messageProperties.setContentType("text/plain");
+//        messageProperties.setContentType("text/plain");
+//        messageProperties.setContentType(MessageProperties.CONTENT_TYPE_TEXT_PLAIN);
         Message message = new Message("mq 消息1234".getBytes(), messageProperties);
 
         rabbitTemplate.send("creditExchange", null, message);
+        rabbitTemplate.send("repayExchange", "repay.text", message);
 
-        rabbitTemplate.convertAndSend("repayExchange", "repay.amqp", "hello object message send!");
+//        rabbitTemplate.convertAndSend("repayExchange", "repay.amqp", "hello object message send!".getBytes());
     }
 }

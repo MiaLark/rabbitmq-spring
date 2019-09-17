@@ -9,15 +9,26 @@ import com.alibaba.fastjson.JSONObject;
  */
 public class JsonDemo {
     public static void main(String[] args) {
-        String path = JsonDemo.class.getClassLoader().getResource("bank.json").getPath();
+        String bankFile = JsonDemo.class.getClassLoader().getResource("bank.json").getPath();
+
+        String bankName = BankUtil.getBankName("6235010100800291413");
+
+        String bankFileStr = FileUtil.readJsonFile(bankFile);
+
+        JSONObject parse = (JSONObject) JSON.parse(bankFileStr);
+
+        String bname = (String) parse.get(bankName);
 
 
-        String bankName = BankUtil.getBankName("6226880172622938");
 
-        String jsonFile = FileUtil.readJsonFile(path);
+        String bankNoFile = JsonDemo.class.getClassLoader().getResource("bankNo.json").getPath();
 
-        JSONObject parse = (JSONObject) JSON.parse(jsonFile);
+        String bankNoFileStr = FileUtil.readJsonFile(bankNoFile);
 
-        System.out.println(parse.get(bankName));
+        final JSONObject parse1 = (JSONObject) JSON.parse(bankNoFileStr);
+
+        final String bankNumber = (String) parse1.get(bname);
+
+        System.out.println(bname + " : " + bankNumber);
     }
 }
